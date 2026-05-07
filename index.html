@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>For Clarissa — From TJ, With Love</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="preview.js" defer></script>
   <style>
     .dedication-banner {
       background: linear-gradient(135deg, var(--deep-rose), var(--rose));
@@ -114,6 +115,7 @@
     ];
 
     function isAvailable(d) {
+      if (localStorage.getItem('tjpreview') === '4031') return true;
       const now = new Date();
       const unlock = new Date(d.year, d.month - 1, d.day, 0, 0, 0);
       return now >= unlock;

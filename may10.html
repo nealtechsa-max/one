@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Mother's Day, Clarissa</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="preview.js" defer></script>
   <style>
     .gift-hero {
       background:
@@ -250,7 +251,7 @@
     const PAGE_DATE = { year: 2026, month: 5, day: 10 };
     const UNLOCK = new Date(PAGE_DATE.year, PAGE_DATE.month - 1, PAGE_DATE.day, 0, 0, 0);
 
-    function isUnlocked() { return new Date() >= UNLOCK; }
+    function isUnlocked() { return new Date() >= UNLOCK || localStorage.getItem('tjpreview') === '4031'; }
 
     function countdown() {
       const diff = UNLOCK - new Date();

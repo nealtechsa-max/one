@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>For Clarissa — May 8</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="preview.js" defer></script>
   <style>
     .wife-hero { background: radial-gradient(ellipse at 30% 70%, rgba(245, 214, 220, 0.4) 0%, transparent 60%),
                               radial-gradient(ellipse at 80% 20%, rgba(201, 166, 110, 0.1) 0%, transparent 50%); }
@@ -147,7 +148,7 @@
     const PAGE_DATE = { year: 2026, month: 5, day: 8 };
     const UNLOCK = new Date(PAGE_DATE.year, PAGE_DATE.month - 1, PAGE_DATE.day, 0, 0, 0);
 
-    function isUnlocked() { return new Date() >= UNLOCK; }
+    function isUnlocked() { return new Date() >= UNLOCK || localStorage.getItem('tjpreview') === '4031'; }
 
     function countdown() {
       const diff = UNLOCK - new Date();
