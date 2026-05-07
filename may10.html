@@ -10,8 +10,8 @@
     .gift-hero {
       background:
         radial-gradient(ellipse at 50% 40%, rgba(201, 166, 110, 0.15) 0%, transparent 55%),
-        radial-gradient(ellipse at 20% 80%, rgba(245, 214, 220, 0.4) 0%, transparent 55%),
-        radial-gradient(ellipse at 85% 15%, rgba(201, 123, 138, 0.1) 0%, transparent 50%);
+        radial-gradient(ellipse at 20% 80%, rgba(200, 230, 216, 0.4) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 15%, rgba(9, 121, 105, 0.1) 0%, transparent 50%);
     }
 
     .gift-hero h1 { font-size: clamp(2.6rem, 8vw, 6rem); }
@@ -81,7 +81,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(245, 214, 220, 0.2) 0%, transparent 50%);
+      background: linear-gradient(135deg, rgba(200, 230, 216, 0.2) 0%, transparent 50%);
       pointer-events: none;
     }
 
@@ -477,8 +477,8 @@
             You are my partner, my best friend, and the great love of my life.
           </p>
           <p>
-            Happy Mother's Day. Go design your mat.
-            Then come back here so I can hold you for a while.
+            Happy Mother's Day, Clarissa. Go design your mat.
+            Then come back here — Trae, Tayla, Raizel, and I will be waiting.
           </p>
           <p class="signature">
             Yours completely,<br>
@@ -506,7 +506,7 @@
 
     // ── Confetti
     function launchConfetti() {
-      const colors = ['#C97B8A','#C9A66E','#F5D6DC','#8E3A4A','#E8D5B0','#ffffff'];
+      const colors = ['#097969','#C9A66E','#C8E6D8','#065A4E','#E8D5B0','#ffffff','#52B788'];
       const container = document.getElementById('confetti-container');
       for (let i = 0; i < 80; i++) {
         const el = document.createElement('div');
@@ -533,7 +533,7 @@
     }
 
     // ── Petals
-    const PETALS = ['🌸','🌺','✿','❀','🌹','🌷'];
+    const PETALS = ['📚','📖','🌿','🍃','💚','🪴','🌱'];
     const pc = document.getElementById('petals');
     for (let i = 0; i < 16; i++) {
       const el = document.createElement('span');
