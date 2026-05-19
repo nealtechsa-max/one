@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { Providers } from './providers'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Motive 8 Creative | Studio Booking',
   description: 'Book your creative space at Motive 8 Creative. Professional studios for photography, video production, podcasting, and events.',
