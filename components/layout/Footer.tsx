@@ -1,36 +1,42 @@
 import Link from 'next/link'
-import { Sparkles, Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react'
+import { Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-950 text-gray-400">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+    <footer className="bg-gray-900 text-gray-400">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-white" />
+          <div className="col-span-2 md:col-span-1">
+            <Link href="/" className="flex items-center gap-2 mb-4">
+              <div className="w-7 h-7 rounded-md bg-brand-600 flex items-center justify-center">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
               </div>
-              <div>
-                <span className="font-display font-bold text-white text-sm leading-none">Motive 8</span>
-                <span className="block font-display font-semibold text-brand-400 text-xs leading-none">Creative</span>
-              </div>
+              <span className="font-bold text-white text-sm tracking-tight">
+                Motive<span className="text-brand-400">8</span> Creative
+              </span>
             </Link>
-            <p className="text-sm leading-relaxed mb-6">
-              Your premier creative studio space. Professional environments for photographers, videographers, podcasters, and event creators.
+            <p className="text-xs leading-relaxed mb-5 max-w-[200px]">
+              Professional creative spaces for photographers, videographers, podcasters, and event creators.
             </p>
-            <div className="flex gap-3">
-              <SocialLink href="#"><Instagram className="w-4 h-4" /></SocialLink>
-              <SocialLink href="#"><Facebook className="w-4 h-4" /></SocialLink>
-              <SocialLink href="#"><Twitter className="w-4 h-4" /></SocialLink>
+            <div className="flex gap-2">
+              {[Instagram, Facebook, Twitter].map((Icon, i) => (
+                <a key={i} href="#" className="w-7 h-7 rounded-md bg-gray-800 hover:bg-brand-700 flex items-center justify-center transition-colors">
+                  <Icon className="w-3.5 h-3.5" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Product */}
           <div>
-            <h3 className="font-display font-semibold text-white mb-4">Quick Links</h3>
-            <ul className="space-y-3 text-sm">
+            <h4 className="text-xs font-semibold text-white uppercase tracking-wide mb-4">Product</h4>
+            <ul className="space-y-2.5 text-xs">
               <FooterLink href="/book">Book a Space</FooterLink>
               <FooterLink href="/membership">Membership Plans</FooterLink>
               <FooterLink href="/#spaces">Our Spaces</FooterLink>
@@ -40,9 +46,9 @@ export default function Footer() {
 
           {/* Account */}
           <div>
-            <h3 className="font-display font-semibold text-white mb-4">Account</h3>
-            <ul className="space-y-3 text-sm">
-              <FooterLink href="/login">Sign In</FooterLink>
+            <h4 className="text-xs font-semibold text-white uppercase tracking-wide mb-4">Account</h4>
+            <ul className="space-y-2.5 text-xs">
+              <FooterLink href="/login">Log In</FooterLink>
               <FooterLink href="/register">Create Account</FooterLink>
               <FooterLink href="/dashboard">My Bookings</FooterLink>
               <FooterLink href="/dashboard">My Membership</FooterLink>
@@ -51,27 +57,27 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="font-display font-semibold text-white mb-4">Contact</h3>
-            <ul className="space-y-3 text-sm">
+            <h4 className="text-xs font-semibold text-white uppercase tracking-wide mb-4">Contact</h4>
+            <ul className="space-y-2.5 text-xs">
               <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-brand-400 shrink-0" />
-                <span>info@motive8creative.com</span>
+                <Mail className="w-3.5 h-3.5 text-brand-400 shrink-0" />
+                info@motive8creative.com
               </li>
               <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-brand-400 shrink-0" />
-                <span>(555) 000-0000</span>
+                <Phone className="w-3.5 h-3.5 text-brand-400 shrink-0" />
+                (555) 000-0000
               </li>
               <li className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-brand-400 shrink-0 mt-0.5" />
+                <MapPin className="w-3.5 h-3.5 text-brand-400 shrink-0 mt-0.5" />
                 <span>123 Creative Blvd<br />Your City, ST 00000</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+        <div className="border-t border-gray-800 pt-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs">
           <p>&copy; {new Date().getFullYear()} Motive 8 Creative. All rights reserved.</p>
-          <div className="flex gap-6">
+          <div className="flex gap-5">
             <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>
             <Link href="#" className="hover:text-white transition-colors">Cancellation Policy</Link>
@@ -79,14 +85,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
-}
-
-function SocialLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <a href={href} className="w-8 h-8 rounded-lg bg-gray-800 hover:bg-brand-700 flex items-center justify-center transition-colors">
-      {children}
-    </a>
   )
 }
 

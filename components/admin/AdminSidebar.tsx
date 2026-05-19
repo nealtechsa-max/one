@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import {
-  LayoutDashboard, Users, Calendar, Settings, Sparkles,
-  CreditCard, Building2, Clock, LogOut, ChevronRight, Star,
+  LayoutDashboard, Users, Calendar, Settings,
+  Building2, LogOut, ChevronRight, Star,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -26,12 +26,17 @@ export default function AdminSidebar() {
       {/* Brand */}
       <div className="p-5 border-b border-gray-800">
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center">
-            <Sparkles className="w-4 h-4 text-white" />
+          <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
           </div>
           <div>
-            <div className="font-display font-bold text-white text-sm leading-none">Motive 8</div>
-            <div className="font-display text-brand-400 text-xs leading-none">Admin Panel</div>
+            <div className="font-bold text-white text-sm leading-none">Motive8</div>
+            <div className="text-brand-400 text-[11px] leading-none mt-0.5 font-medium">Admin Panel</div>
           </div>
         </Link>
       </div>

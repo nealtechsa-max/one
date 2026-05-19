@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Sparkles, Eye, EyeOff, Loader2, AlertCircle } from 'lucide-react'
+import { Eye, EyeOff, Loader2, AlertCircle } from 'lucide-react'
 
 export default function LoginForm() {
   const router = useRouter()
@@ -22,41 +22,68 @@ export default function LoginForm() {
     setLoading(true)
     setError('')
 
-    const result = await signIn('credentials', {
-      email,
-      password,
-      redirect: false,
-    })
+    const result = await signIn('credentials', { email, password, redirect: false })
 
     if (result?.ok) {
       router.push(callbackUrl)
     } else {
-      setError('Invalid email or password')
+      setError('Invalid email or password. Please try again.')
     }
     setLoading(false)
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-brand-950 via-gray-900 to-gray-950 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2.5 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-lg">
-              <Sparkles className="w-5 h-5 text-white" />
+    <div className="min-h-screen bg-white flex">
+      {/* Left panel — branding */}
+      <div className="hidden lg:flex w-[420px] shrink-0 bg-brand-600 flex-col justify-between p-10">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <span className="font-bold text-white text-[15px] tracking-tight">Motive8 Creative</span>
+        </Link>
+        <div>
+          <blockquote className="text-white/90 text-xl font-medium leading-relaxed mb-6">
+            "The easiest studio booking experience I've ever used. From browsing to confirmed in under two minutes."
+          </blockquote>
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-white font-semibold text-sm">J</div>
+            <div>
+              <div className="text-white font-medium text-sm">Jordan M.</div>
+              <div className="text-white/60 text-xs">Pro Creator Member</div>
             </div>
-            <div className="text-left">
-              <div className="font-display font-bold text-white text-base leading-none">Motive 8</div>
-              <div className="font-display font-semibold text-brand-400 text-sm leading-none">Creative</div>
-            </div>
-          </Link>
-          <h1 className="font-display text-2xl font-bold text-white">Welcome back</h1>
-          <p className="text-gray-400 text-sm mt-1">Sign in to manage your bookings</p>
+          </div>
         </div>
+        <p className="text-white/40 text-xs">&copy; {new Date().getFullYear()} Motive 8 Creative</p>
+      </div>
 
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
+      {/* Right panel — form */}
+      <div className="flex-1 flex items-center justify-center p-6">
+        <div className="w-full max-w-[380px]">
+          {/* Mobile logo */}
+          <Link href="/" className="flex items-center gap-2 lg:hidden mb-8">
+            <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <span className="font-bold text-gray-900 text-[15px]">Motive8 Creative</span>
+          </Link>
+
+          <h1 className="text-2xl font-bold text-gray-900 mb-1">Welcome back</h1>
+          <p className="text-sm text-gray-500 mb-7">Sign in to manage your bookings and membership.</p>
+
           {error && (
-            <div className="flex items-center gap-2 rounded-xl bg-red-50 border border-red-200 px-4 py-3 mb-5 text-sm text-red-700">
-              <AlertCircle className="w-4 h-4 shrink-0" />
+            <div className="flex items-start gap-2 rounded-lg bg-red-50 border border-red-200 px-3.5 py-3 mb-5 text-sm text-red-700">
+              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
               {error}
             </div>
           )}
@@ -77,7 +104,9 @@ export default function LoginForm() {
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="label mb-0">Password</label>
-                <Link href="#" className="text-xs text-brand-600 hover:text-brand-700">Forgot password?</Link>
+                <Link href="#" className="text-xs text-brand-600 hover:text-brand-700 font-medium">
+                  Forgot password?
+                </Link>
               </div>
               <div className="relative">
                 <input
@@ -93,27 +122,32 @@ export default function LoginForm() {
                   type="button"
                   onClick={() => setShowPass(!showPass)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  aria-label="Toggle password visibility"
                 >
                   {showPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
             </div>
-            <button type="submit" disabled={loading} className="btn-primary w-full">
-              {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Signing in...</> : 'Sign In'}
+
+            <button type="submit" disabled={loading} className="btn-primary w-full py-3 mt-1">
+              {loading ? (
+                <><Loader2 className="w-4 h-4 animate-spin" /> Signing in…</>
+              ) : (
+                'Sign in'
+              )}
             </button>
           </form>
 
-          <div className="mt-5 text-center text-sm text-gray-500">
+          <p className="mt-5 text-center text-sm text-gray-500">
             Don&apos;t have an account?{' '}
-            <Link href="/register" className="text-brand-600 font-medium hover:text-brand-700">
-              Create one
+            <Link href="/register" className="text-brand-600 font-semibold hover:text-brand-700">
+              Create one free
             </Link>
-          </div>
+          </p>
 
-          <div className="mt-6 rounded-xl bg-gray-50 p-4 text-xs text-gray-500">
-            <strong className="text-gray-700">Demo accounts:</strong><br />
+          <div className="mt-8 rounded-lg bg-gray-50 border border-gray-100 p-3.5 text-xs text-gray-500">
+            <strong className="text-gray-700 block mb-1">Demo accounts</strong>
             Admin: admin@motive8creative.com / admin123<br />
-            Member: member@example.com / member123<br />
             User: user@example.com / user123
           </div>
         </div>

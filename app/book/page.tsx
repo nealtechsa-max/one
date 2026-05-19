@@ -19,19 +19,25 @@ export default async function BookPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="font-display text-3xl font-bold text-gray-900">Book a Space</h1>
-          <p className="text-gray-500 mt-1">Select a space, choose your time, and confirm your booking.</p>
+
+      {/* Page header */}
+      <div className="bg-white border-b border-gray-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-7">
+          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Book a Space</h1>
+          <p className="text-sm text-gray-500 mt-1">Select a space, pick your date and time, and confirm your booking.</p>
         </div>
-        <Suspense fallback={<div className="flex items-center justify-center py-16 text-gray-400">Loading calendar...</div>}>
-          <BookingCalendar
-            spaces={spaces}
-            studioHours={hours}
-            settings={settings}
-          />
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <Suspense fallback={
+          <div className="flex items-center justify-center py-24 text-sm text-gray-400">
+            Loading calendar…
+          </div>
+        }>
+          <BookingCalendar spaces={spaces} studioHours={hours} settings={settings} />
         </Suspense>
       </div>
+
       <Footer />
     </div>
   )

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
-import { Sparkles, Eye, EyeOff, Loader2, AlertCircle } from 'lucide-react'
+import { Eye, EyeOff, Loader2, AlertCircle, CheckCircle } from 'lucide-react'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -18,14 +18,8 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (form.password !== form.confirm) {
-      setError('Passwords do not match')
-      return
-    }
-    if (form.password.length < 8) {
-      setError('Password must be at least 8 characters')
-      return
-    }
+    if (form.password !== form.confirm) { setError('Passwords do not match'); return }
+    if (form.password.length < 8) { setError('Password must be at least 8 characters'); return }
     setLoading(true)
     setError('')
 
@@ -36,53 +30,87 @@ export default function RegisterPage() {
     })
     const data = await res.json()
 
-    if (!res.ok) {
-      setError(data.error || 'Registration failed')
-      setLoading(false)
-      return
-    }
+    if (!res.ok) { setError(data.error || 'Registration failed'); setLoading(false); return }
 
-    // Auto sign in
     await signIn('credentials', { email: form.email, password: form.password, redirect: false })
     router.push('/dashboard')
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-brand-950 via-gray-900 to-gray-950 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2.5 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-lg">
-              <Sparkles className="w-5 h-5 text-white" />
-            </div>
-            <div className="text-left">
-              <div className="font-display font-bold text-white text-base leading-none">Motive 8</div>
-              <div className="font-display font-semibold text-brand-400 text-sm leading-none">Creative</div>
-            </div>
-          </Link>
-          <h1 className="font-display text-2xl font-bold text-white">Create your account</h1>
-          <p className="text-gray-400 text-sm mt-1">Start booking your creative space today</p>
+    <div className="min-h-screen bg-white flex">
+      {/* Left panel — branding */}
+      <div className="hidden lg:flex w-[420px] shrink-0 bg-brand-600 flex-col justify-between p-10">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <span className="font-bold text-white text-[15px] tracking-tight">Motive8 Creative</span>
+        </Link>
+        <div className="space-y-4">
+          <h2 className="text-white font-bold text-2xl leading-snug">
+            Your creative studio awaits.
+          </h2>
+          <ul className="space-y-3">
+            {[
+              'Instant booking confirmation',
+              'Access to 3 professional spaces',
+              'Membership discounts available',
+              'Cancel or reschedule any time',
+            ].map(item => (
+              <li key={item} className="flex items-center gap-2.5 text-white/85 text-sm">
+                <CheckCircle className="w-4 h-4 text-white/60 shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
+        <p className="text-white/40 text-xs">&copy; {new Date().getFullYear()} Motive 8 Creative</p>
+      </div>
 
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
+      {/* Right panel — form */}
+      <div className="flex-1 flex items-center justify-center p-6">
+        <div className="w-full max-w-[380px]">
+          {/* Mobile logo */}
+          <Link href="/" className="flex items-center gap-2 lg:hidden mb-8">
+            <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <span className="font-bold text-gray-900 text-[15px]">Motive8 Creative</span>
+          </Link>
+
+          <h1 className="text-2xl font-bold text-gray-900 mb-1">Create your account</h1>
+          <p className="text-sm text-gray-500 mb-7">Start booking professional spaces today. Free to join.</p>
+
           {error && (
-            <div className="flex items-center gap-2 rounded-xl bg-red-50 border border-red-200 px-4 py-3 mb-5 text-sm text-red-700">
-              <AlertCircle className="w-4 h-4 shrink-0" />
+            <div className="flex items-start gap-2 rounded-lg bg-red-50 border border-red-200 px-3.5 py-3 mb-5 text-sm text-red-700">
+              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="label">Full Name</label>
+              <label className="label">Full name</label>
               <input type="text" value={form.name} onChange={set('name')} className="input" placeholder="Jane Doe" required />
             </div>
             <div>
-              <label className="label">Email</label>
+              <label className="label">Email address</label>
               <input type="email" value={form.email} onChange={set('email')} className="input" placeholder="you@example.com" required />
             </div>
             <div>
-              <label className="label">Phone <span className="text-gray-400 font-normal">(optional)</span></label>
+              <label className="label">
+                Phone <span className="text-gray-400 font-normal">(optional)</span>
+              </label>
               <input type="tel" value={form.phone} onChange={set('phone')} className="input" placeholder="(555) 000-0000" />
             </div>
             <div>
@@ -97,23 +125,44 @@ export default function RegisterPage() {
                   required
                   minLength={8}
                 />
-                <button type="button" onClick={() => setShowPass(!showPass)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                <button
+                  type="button"
+                  onClick={() => setShowPass(!showPass)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
                   {showPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
             </div>
             <div>
-              <label className="label">Confirm Password</label>
-              <input type="password" value={form.confirm} onChange={set('confirm')} className="input" placeholder="Repeat your password" required />
+              <label className="label">Confirm password</label>
+              <input
+                type="password"
+                value={form.confirm}
+                onChange={set('confirm')}
+                className="input"
+                placeholder="Repeat your password"
+                required
+              />
             </div>
-            <button type="submit" disabled={loading} className="btn-primary w-full">
-              {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Creating account...</> : 'Create Account'}
+            <button type="submit" disabled={loading} className="btn-primary w-full py-3 mt-1">
+              {loading ? (
+                <><Loader2 className="w-4 h-4 animate-spin" /> Creating account…</>
+              ) : (
+                'Create account'
+              )}
             </button>
           </form>
 
           <p className="mt-5 text-center text-sm text-gray-500">
             Already have an account?{' '}
-            <Link href="/login" className="text-brand-600 font-medium hover:text-brand-700">Sign in</Link>
+            <Link href="/login" className="text-brand-600 font-semibold hover:text-brand-700">Sign in</Link>
+          </p>
+          <p className="mt-4 text-center text-xs text-gray-400">
+            By creating an account you agree to our{' '}
+            <Link href="#" className="underline hover:text-gray-600">Terms of Service</Link>
+            {' '}and{' '}
+            <Link href="#" className="underline hover:text-gray-600">Privacy Policy</Link>.
           </p>
         </div>
       </div>
