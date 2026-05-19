@@ -1,0 +1,156 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String    @id @default(cuid())
+  name            String
+  email           String    @unique
+  phone           String?
+  passwordHash    String
+  role            String    @default("USER") // USER, MEMBER, ADMIN
+  avatarUrl       String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  bookings        Booking[]
+  membership      Membership?
+  invoices        Invoice[]
+}
+
+model MembershipPlan {
+  id                  String    @id @default(cuid())
+  name                String
+  description         String
+  monthlyFee          Float
+  hoursIncluded       Int
+  discountedHourlyRate Float
+  regularHourlyRate   Float
+  isActive            Boolean   @default(true)
+  color               String    @default("#c441f5")
+  sortOrder           Int       @default(0)
+  createdAt           DateTime  @default(now())
+
+  memberships         Membership[]
+}
+
+model Membership {
+  id                  String    @id @default(cuid())
+  userId              String    @unique
+  planId              String
+  status              String    @default("ACTIVE") // ACTIVE, PAUSED, CANCELLED
+  startDate           DateTime  @default(now())
+  nextBillingDate     DateTime
+  hoursUsedThisMonth  Float     @default(0)
+  totalHoursBooked    Float     @default(0)
+  paymentMethod       String    @default("PAYPAL") // PAYPAL, SQUARE
+  paymentToken        String?
+  notes               String?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan                MembershipPlan @relation(fields: [planId], references: [id])
+}
+
+model StudioSpace {
+  id              String    @id @default(cuid())
+  name            String
+  description     String
+  capacity        Int
+  amenities       String    // JSON string array
+  imageUrl        String?
+  regularHourlyRate Float
+  isActive        Boolean   @default(true)
+  color           String    @default("#c441f5")
+  sortOrder       Int       @default(0)
+  createdAt       DateTime  @default(now())
+
+  bookings        Booking[]
+}
+
+model Booking {
+  id              String    @id @default(cuid())
+  userId          String
+  spaceId         String
+  title           String?
+  startTime       DateTime
+  endTime         DateTime
+  status          String    @default("PENDING") // PENDING, CONFIRMED, CANCELLED, COMPLETED
+  totalPrice      Float
+  isMemberBooking Boolean   @default(false)
+  hoursCharged    Float
+  paymentMethod   String?   // PAYPAL, SQUARE, MEMBER_CREDIT
+  paymentId       String?
+  paymentStatus   String    @default("UNPAID") // UNPAID, PAID, REFUNDED
+  notes           String?
+  internalNotes   String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  user            User      @relation(fields: [userId], references: [id])
+  space           StudioSpace @relation(fields: [spaceId], references: [id])
+  invoice         Invoice?
+}
+
+model Invoice {
+  id              String    @id @default(cuid())
+  userId          String
+  bookingId       String?   @unique
+  amount          Float
+  status          String    @default("PENDING") // PENDING, PAID, REFUNDED, CANCELLED
+  paymentMethod   String?
+  paymentId       String?
+  description     String
+  dueDate         DateTime?
+  paidAt          DateTime?
+  createdAt       DateTime  @default(now())
+
+  user            User      @relation(fields: [userId], references: [id])
+  booking         Booking?  @relation(fields: [bookingId], references: [id])
+}
+
+model StudioHours {
+  id          String    @id @default(cuid())
+  dayOfWeek   Int       // 0=Sunday, 1=Monday, ... 6=Saturday
+  openTime    String    // "09:00"
+  closeTime   String    // "22:00"
+  isOpen      Boolean   @default(true)
+  updatedAt   DateTime  @updatedAt
+}
+
+model BlockedDate {
+  id          String    @id @default(cuid())
+  date        DateTime
+  reason      String?
+  createdAt   DateTime  @default(now())
+}
+
+model SiteSettings {
+  id                    String  @id @default(cuid())
+  siteName              String  @default("Motive 8 Creative")
+  tagline               String  @default("Your Creative Space Awaits")
+  contactEmail          String  @default("info@motive8creative.com")
+  contactPhone          String  @default("")
+  address               String  @default("")
+  minBookingHours       Float   @default(1)
+  maxBookingHours       Float   @default(8)
+  advanceBookingDays    Int     @default(60)
+  cancellationHours     Int     @default(24)
+  paypalClientId        String  @default("")
+  paypalMode            String  @default("sandbox")
+  squareAppId           String  @default("")
+  squareLocationId      String  @default("")
+  squareMode            String  @default("sandbox")
+  emailNotifications    Boolean @default(true)
+  smtpHost              String  @default("")
+  smtpPort              Int     @default(587)
+  smtpUser              String  @default("")
+  smtpPass              String  @default("")
+  updatedAt             DateTime @updatedAt
+}
