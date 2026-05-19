@@ -198,7 +198,7 @@ export default function BookingCalendar({ spaces, studioHours, settings }: Booki
       <div className="lg:col-span-1 space-y-5">
         {/* Space selector */}
         <div className="card">
-          <h3 className="font-display font-semibold text-gray-900 mb-3">Select Space</h3>
+          <h3 className="font-semibold text-gray-900 mb-3">Select Space</h3>
           <div className="space-y-2">
             {spaces.map(s => (
               <button
@@ -228,7 +228,7 @@ export default function BookingCalendar({ spaces, studioHours, settings }: Booki
             <div className="w-full h-28 rounded-xl mb-4 flex items-center justify-center text-white text-4xl" style={{ background: `linear-gradient(135deg, ${space.color}dd, ${space.color}88)` }}>
               🎬
             </div>
-            <h3 className="font-display font-semibold text-gray-900">{space.name}</h3>
+            <h3 className="font-semibold text-gray-900">{space.name}</h3>
             <p className="text-sm text-gray-500 mt-1 leading-relaxed">{space.description}</p>
             <div className="flex items-center gap-4 mt-3 text-sm text-gray-500">
               <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" /> {space.capacity} max</span>
@@ -250,7 +250,7 @@ export default function BookingCalendar({ spaces, studioHours, settings }: Booki
 
         {/* Hours */}
         <div className="card">
-          <h3 className="font-display font-semibold text-gray-900 mb-3 text-sm">Studio Hours</h3>
+          <h3 className="font-semibold text-gray-900 mb-3 text-sm">Studio Hours</h3>
           <div className="space-y-1.5">
             {studioHours.map(h => (
               <div key={h.dayOfWeek} className="flex justify-between text-xs">
@@ -293,9 +293,9 @@ export default function BookingCalendar({ spaces, studioHours, settings }: Booki
             events={events}
             selectable={true}
             selectMirror={true}
+            selectMinDistance={1}
             select={handleSelect}
             businessHours={getBusinessHours()}
-            selectConstraint="businessHours"
             height="auto"
             slotMinTime={minTime}
             slotMaxTime={maxTime}
@@ -316,7 +316,7 @@ export default function BookingCalendar({ spaces, studioHours, settings }: Booki
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md animate-slide-up">
             <div className="flex items-center justify-between p-6 border-b border-gray-100">
-              <h2 className="font-display font-bold text-xl text-gray-900">Confirm Booking</h2>
+              <h2 className="font-bold text-xl text-gray-900">Confirm Booking</h2>
               <button onClick={() => setShowBookingModal(false)} className="p-1.5 rounded-lg hover:bg-gray-100">
                 <X className="w-5 h-5 text-gray-400" />
               </button>
