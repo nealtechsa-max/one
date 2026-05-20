@@ -109,7 +109,7 @@ export default function AdminSettingsPage() {
     <div className="p-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-display text-2xl font-bold text-gray-900">Settings</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
           <p className="text-gray-500 text-sm mt-1">Configure your studio, availability, and integrations</p>
         </div>
       </div>
@@ -136,7 +136,7 @@ export default function AdminSettingsPage() {
       {/* General */}
       {tab === 'general' && (
         <div className="card max-w-2xl space-y-5">
-          <h2 className="font-display font-semibold text-lg text-gray-900">General Settings</h2>
+          <h2 className="font-semibold text-lg text-gray-900">General Settings</h2>
           <InputField label="Studio Name" value={settings.siteName} onChange={set('siteName')} />
           <InputField label="Tagline" value={settings.tagline} onChange={set('tagline')} />
           <InputField label="Contact Email" value={settings.contactEmail} onChange={set('contactEmail')} type="email" />
@@ -159,7 +159,7 @@ export default function AdminSettingsPage() {
       {/* Hours */}
       {tab === 'hours' && (
         <div className="card max-w-2xl">
-          <h2 className="font-display font-semibold text-lg text-gray-900 mb-5">Studio Operating Hours</h2>
+          <h2 className="font-semibold text-lg text-gray-900 mb-5">Studio Operating Hours</h2>
           <div className="space-y-3">
             {DAYS.map((day, i) => {
               const h = hours.find(h => h.dayOfWeek === i)
@@ -206,7 +206,7 @@ export default function AdminSettingsPage() {
       {/* Payments */}
       {tab === 'payments' && (
         <div className="card max-w-2xl space-y-6">
-          <h2 className="font-display font-semibold text-lg text-gray-900">Payment Settings</h2>
+          <h2 className="font-semibold text-lg text-gray-900">Payment Settings</h2>
 
           <div className="space-y-4">
             <h3 className="font-semibold text-gray-700 flex items-center gap-2">
@@ -248,7 +248,7 @@ export default function AdminSettingsPage() {
       {/* Email */}
       {tab === 'email' && (
         <div className="card max-w-2xl space-y-5">
-          <h2 className="font-display font-semibold text-lg text-gray-900">Email Notifications</h2>
+          <h2 className="font-semibold text-lg text-gray-900">Email Notifications</h2>
           <label className="flex items-center gap-3 cursor-pointer">
             <input
               type="checkbox"

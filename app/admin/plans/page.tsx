@@ -80,7 +80,7 @@ export default function AdminPlansPage() {
     <div className="p-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-display text-2xl font-bold text-gray-900">Membership Plans</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Membership Plans</h1>
           <p className="text-gray-500 text-sm mt-1">Manage pricing and included hours for each plan</p>
         </div>
         <button onClick={openNew} className="btn-primary text-sm"><Plus className="w-4 h-4" /> New Plan</button>
@@ -96,13 +96,13 @@ export default function AdminPlansPage() {
                 <div>
                   <div className="flex items-center gap-2">
                     <Star className="w-4 h-4" style={{ color: p.color }} />
-                    <span className="font-display font-bold text-gray-900">{p.name}</span>
+                    <span className="font-bold text-gray-900">{p.name}</span>
                   </div>
                   <p className="text-xs text-gray-500 mt-0.5">{p.description}</p>
                 </div>
                 {!p.isActive && <span className="badge bg-gray-100 text-gray-500 text-xs">Inactive</span>}
               </div>
-              <div className="text-3xl font-display font-bold text-gray-900 mb-3">
+              <div className="text-3xl font-bold text-gray-900 mb-3">
                 {formatCurrency(p.monthlyFee)}<span className="text-sm font-normal text-gray-400">/mo</span>
               </div>
               <div className="space-y-2 text-sm mb-4">
@@ -131,7 +131,7 @@ export default function AdminPlansPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-6 border-b border-gray-100">
-              <h2 className="font-display font-bold text-xl text-gray-900">{editPlan.id ? 'Edit Plan' : 'New Plan'}</h2>
+              <h2 className="font-bold text-xl text-gray-900">{editPlan.id ? 'Edit Plan' : 'New Plan'}</h2>
               <button onClick={() => setShowForm(false)} className="text-gray-400 hover:text-gray-600"><X className="w-5 h-5" /></button>
             </div>
             <div className="p-6 space-y-4">

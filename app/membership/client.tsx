@@ -62,14 +62,14 @@ export default function MembershipClient({ plans }: { plans: Plan[] }) {
   return (
     <>
       {/* Hero */}
-      <div className="bg-gradient-to-br from-brand-950 to-gray-950 text-white py-16">
+      <div className="bg-white border-b border-gray-100 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 bg-brand-500/20 border border-brand-500/30 rounded-full px-4 py-1.5 text-brand-300 text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 rounded-full px-4 py-1.5 text-brand-700 text-sm font-medium mb-4">
             <Star className="w-3.5 h-3.5" /> Membership Plans
           </div>
-          <h1 className="font-display text-4xl md:text-5xl font-bold mb-4">Unlock your creative potential</h1>
-          <p className="text-gray-300 max-w-xl mx-auto">
-            Get included hours every month, priority booking, and discounted rates when you go beyond your plan. Cancel anytime.
+          <h1 className="font-bold text-4xl md:text-5xl text-gray-900 mb-4">Book more, pay less.</h1>
+          <p className="text-gray-500 max-w-xl mx-auto">
+            Motive 8 members get monthly studio hours, discounted rates, and exclusive 24/7 after-hours access.
           </p>
         </div>
       </div>
@@ -99,7 +99,7 @@ export default function MembershipClient({ plans }: { plans: Plan[] }) {
                   <span className="font-semibold text-sm" style={{ color: plan.color }}>{plan.name}</span>
                 </div>
                 <div className="mt-3">
-                  <span className="text-4xl font-display font-bold text-gray-900">{formatCurrency(plan.monthlyFee)}</span>
+                  <span className="text-4xl font-bold text-gray-900">{formatCurrency(plan.monthlyFee)}</span>
                   <span className="text-gray-400">/month</span>
                 </div>
                 <p className="text-sm text-gray-500 mt-2 leading-relaxed">{plan.description}</p>
@@ -113,6 +113,7 @@ export default function MembershipClient({ plans }: { plans: Plan[] }) {
                 <Feature color={plan.color}>Flexible space selection</Feature>
                 <Feature color={plan.color}>Auto monthly billing</Feature>
                 <Feature color={plan.color}>Cancel anytime</Feature>
+                <Feature color={plan.color}><strong>24/7 After-Hours Access</strong></Feature>
               </ul>
 
               <button
@@ -128,10 +129,11 @@ export default function MembershipClient({ plans }: { plans: Plan[] }) {
 
         {/* FAQ */}
         <div className="max-w-2xl mx-auto">
-          <h2 className="font-display text-2xl font-bold text-gray-900 text-center mb-8">Frequently Asked Questions</h2>
+          <h2 className="font-bold text-2xl text-gray-900 text-center mb-8">Frequently Asked Questions</h2>
           <div className="space-y-4">
-            <FAQ q="When do my hours reset?" a="Hours reset at the start of each billing cycle (monthly). Unused hours do not carry over." />
-            <FAQ q="What happens after I use all my included hours?" a="You'll continue to have full access at the discounted overage rate for your plan — much lower than the standard rate." />
+            <FAQ q="When do my hours reset?" a="Hours reset at the start of each billing cycle (monthly). Unused hours do not carry over. Hours are for the Photo Studio at $60/hr base rate." />
+            <FAQ q="What happens after I use all my included hours?" a="You'll continue to have full access at your plan's discounted overage rate — much lower than the standard $60/hr rate. Basic Access members pay $55/hr, Studio Pass members pay $50/hr, and Pro Members pay $45/hr." />
+            <FAQ q="Do I get after-hours access?" a="Yes! All members get 24/7 access to the studio — including evenings, nights, and weekends beyond our regular 7am–7pm hours." />
             <FAQ q="Can I change my plan?" a="Yes! You can upgrade or downgrade your plan at any time from your dashboard. Changes take effect on your next billing date." />
             <FAQ q="How does billing work?" a="You're billed automatically on the same date each month via PayPal or Square. You'll receive an email receipt." />
             <FAQ q="Can I cancel?" a="Yes, you can cancel your membership at any time from your dashboard. Access continues until the end of your current billing period." />
@@ -145,7 +147,7 @@ export default function MembershipClient({ plans }: { plans: Plan[] }) {
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md animate-slide-up">
             <div className="flex items-center justify-between p-6 border-b border-gray-100">
               <div>
-                <h2 className="font-display font-bold text-xl text-gray-900">{selectedPlan.name} Membership</h2>
+                <h2 className="font-bold text-xl text-gray-900">{selectedPlan.name} Membership</h2>
                 <p className="text-sm text-gray-500 mt-0.5">First payment: <strong>{formatCurrency(selectedPlan.monthlyFee)}</strong></p>
               </div>
               <button onClick={() => setShowModal(false)} className="p-1.5 rounded-lg hover:bg-gray-100">

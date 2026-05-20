@@ -65,11 +65,11 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-brand-400 shrink-0" />
-                (555) 000-0000
+                (210) 326-2722
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-brand-400 shrink-0 mt-0.5" />
-                <span>123 Creative Blvd<br />Your City, ST 00000</span>
+                <span>11503 Jones Malzberger<br />San Antonio, TX 78216</span>
               </li>
             </ul>
           </div>

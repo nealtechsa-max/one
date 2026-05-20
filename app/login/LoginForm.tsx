@@ -49,13 +49,13 @@ export default function LoginForm() {
         </Link>
         <div>
           <blockquote className="text-white/90 text-xl font-medium leading-relaxed mb-6">
-            "The easiest studio booking experience I've ever used. From browsing to confirmed in under two minutes."
+            "I shoot here every week. The booking is instant and the studio is always ready when I arrive."
           </blockquote>
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-white font-semibold text-sm">J</div>
+            <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-white font-semibold text-sm">M</div>
             <div>
-              <div className="text-white font-medium text-sm">Jordan M.</div>
-              <div className="text-white/60 text-xs">Pro Creator Member</div>
+              <div className="text-white font-medium text-sm">Marcus T.</div>
+              <div className="text-white/60 text-xs">Photographer</div>
             </div>
           </div>
         </div>
@@ -145,11 +145,6 @@ export default function LoginForm() {
             </Link>
           </p>
 
-          <div className="mt-8 rounded-lg bg-gray-50 border border-gray-100 p-3.5 text-xs text-gray-500">
-            <strong className="text-gray-700 block mb-1">Demo accounts</strong>
-            Admin: admin@motive8creative.com / admin123<br />
-            User: user@example.com / user123
-          </div>
         </div>
       </div>
     </div>

@@ -118,7 +118,7 @@ export default function AdminMembersPage() {
     <div className="p-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-display text-2xl font-bold text-gray-900">Members & Users</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Members & Users</h1>
           <p className="text-gray-500 text-sm mt-1">{users.length} total users · {memberCount} active members</p>
         </div>
       </div>
@@ -126,15 +126,15 @@ export default function AdminMembersPage() {
       {/* Summary cards */}
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="card text-center">
-          <div className="text-3xl font-display font-bold text-gray-900">{users.length}</div>
+          <div className="text-3xl font-bold text-gray-900">{users.length}</div>
           <div className="text-sm text-gray-400 mt-1 flex items-center justify-center gap-1"><Users className="w-3.5 h-3.5" /> Total Users</div>
         </div>
         <div className="card text-center">
-          <div className="text-3xl font-display font-bold text-brand-600">{memberCount}</div>
+          <div className="text-3xl font-bold text-brand-600">{memberCount}</div>
           <div className="text-sm text-gray-400 mt-1 flex items-center justify-center gap-1"><Star className="w-3.5 h-3.5" /> Active Members</div>
         </div>
         <div className="card text-center">
-          <div className="text-3xl font-display font-bold text-gold-600">
+          <div className="text-3xl font-bold text-gold-600">
             {formatCurrency(users.reduce((acc, u) => acc + (u.membership?.status === 'ACTIVE' ? u.membership.plan.monthlyFee : 0), 0))}
           </div>
           <div className="text-sm text-gray-400 mt-1">MRR (membership)</div>
@@ -235,7 +235,7 @@ export default function AdminMembersPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md">
             <div className="flex items-center justify-between p-6 border-b border-gray-100">
-              <h2 className="font-display font-bold text-xl text-gray-900">Edit User</h2>
+              <h2 className="font-bold text-xl text-gray-900">Edit User</h2>
               <button onClick={() => setSelectedUser(null)} className="text-gray-400 hover:text-gray-600">✕</button>
             </div>
             <div className="p-6 space-y-4">

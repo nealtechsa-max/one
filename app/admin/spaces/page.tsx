@@ -91,7 +91,7 @@ export default function AdminSpacesPage() {
     <div className="p-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-display text-2xl font-bold text-gray-900">Studio Spaces</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Studio Spaces</h1>
           <p className="text-gray-500 text-sm mt-1">{spaces.length} spaces configured</p>
         </div>
         <button onClick={openNew} className="btn-primary text-sm">
@@ -111,7 +111,7 @@ export default function AdminSpacesPage() {
                   <Building2 className="w-8 h-8 opacity-80" />
                 </div>
                 <div className="flex items-start justify-between mb-2">
-                  <h3 className="font-display font-bold text-gray-900">{s.name}</h3>
+                  <h3 className="font-bold text-gray-900">{s.name}</h3>
                   {!s.isActive && <span className="badge bg-gray-100 text-gray-500 text-xs">Inactive</span>}
                 </div>
                 <p className="text-sm text-gray-500 mb-3 line-clamp-2">{s.description}</p>
@@ -134,7 +134,7 @@ export default function AdminSpacesPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-6 border-b border-gray-100">
-              <h2 className="font-display font-bold text-xl text-gray-900">{editSpace.id ? 'Edit Space' : 'New Space'}</h2>
+              <h2 className="font-bold text-xl text-gray-900">{editSpace.id ? 'Edit Space' : 'New Space'}</h2>
               <button onClick={() => setShowForm(false)} className="text-gray-400 hover:text-gray-600"><X className="w-5 h-5" /></button>
             </div>
             <div className="p-6 space-y-4">

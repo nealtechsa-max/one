@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Calendar, Clock, CreditCard, User, Star, ChevronRight, X, Loader2, AlertCircle } from 'lucide-react'
 import { formatCurrency, formatDateTime, formatDate, getStatusColor } from '@/lib/utils'
 import { useToast } from '@/components/ui/Toast'
@@ -53,10 +54,26 @@ export default function UserDashboardClient({
   membership: Membership | null
 }) {
   const { toast } = useToast()
+  const router = useRouter()
   const [tab, setTab] = useState<'bookings' | 'membership' | 'profile'>('bookings')
   const [cancelId, setCancelId] = useState<string | null>(null)
   const [cancelling, setCancelling] = useState(false)
   const [localBookings, setLocalBookings] = useState(bookings)
+
+  const handleCancelMembership = async () => {
+    const confirmed = window.confirm(
+      'Are you sure you want to cancel your membership? You will retain access until the end of your current billing period.'
+    )
+    if (!confirmed) return
+    try {
+      const res = await fetch('/api/members', { method: 'DELETE' })
+      if (!res.ok) throw new Error('Failed to cancel membership')
+      toast('Membership cancelled successfully', 'success')
+      router.push('/membership')
+    } catch {
+      toast('Could not cancel membership. Please try again.', 'error')
+    }
+  }
 
   const upcomingBookings = localBookings.filter(b => new Date(b.startTime) > new Date() && b.status !== 'CANCELLED')
   const pastBookings = localBookings.filter(b => new Date(b.startTime) <= new Date() || b.status === 'CANCELLED')
@@ -85,7 +102,7 @@ export default function UserDashboardClient({
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-display text-2xl font-bold text-gray-900">
+          <h1 className="font-bold text-2xl text-gray-900">
             Welcome back, {user?.name?.split(' ')[0]}!
           </h1>
           <p className="text-gray-500 text-sm mt-0.5">{user?.email}</p>
@@ -163,7 +180,7 @@ export default function UserDashboardClient({
         <div className="space-y-6">
           {upcomingBookings.length > 0 && (
             <div>
-              <h3 className="font-display font-semibold text-gray-900 mb-3">Upcoming Bookings</h3>
+              <h3 className="font-semibold text-gray-900 mb-3">Upcoming Bookings</h3>
               <div className="space-y-3">
                 {upcomingBookings.map(b => (
                   <BookingCard key={b.id} booking={b} onCancel={() => setCancelId(b.id)} />
@@ -173,7 +190,7 @@ export default function UserDashboardClient({
           )}
           {pastBookings.length > 0 && (
             <div>
-              <h3 className="font-display font-semibold text-gray-900 mb-3">Past Bookings</h3>
+              <h3 className="font-semibold text-gray-900 mb-3">Past Bookings</h3>
               <div className="space-y-3">
                 {pastBookings.map(b => (
                   <BookingCard key={b.id} booking={b} past />
@@ -199,7 +216,7 @@ export default function UserDashboardClient({
               <div className="flex items-start justify-between mb-6">
                 <div>
                   <span className="text-sm font-semibold" style={{ color: membership.plan.color }}>{membership.plan.name}</span>
-                  <h2 className="font-display font-bold text-2xl text-gray-900 mt-1">{formatCurrency(membership.plan.monthlyFee)}/mo</h2>
+                  <h2 className="font-bold text-2xl text-gray-900 mt-1">{formatCurrency(membership.plan.monthlyFee)}/mo</h2>
                 </div>
                 <span className="badge bg-green-100 text-green-800">Active</span>
               </div>
@@ -214,13 +231,13 @@ export default function UserDashboardClient({
               </p>
               <div className="flex gap-3">
                 <Link href="/membership" className="btn-secondary text-sm">Change Plan</Link>
-                <button className="text-sm text-red-500 hover:text-red-700 px-3 py-2">Cancel Membership</button>
+                <button onClick={handleCancelMembership} className="text-sm text-red-500 hover:text-red-700 px-3 py-2">Cancel Membership</button>
               </div>
             </div>
           ) : (
             <div className="card text-center py-12">
               <Star className="w-12 h-12 text-gray-200 mx-auto mb-3" />
-              <h3 className="font-display font-bold text-lg text-gray-900 mb-2">No Active Membership</h3>
+              <h3 className="font-bold text-lg text-gray-900 mb-2">No Active Membership</h3>
               <p className="text-gray-500 text-sm mb-6">Join a membership plan to get included hours and discounted rates.</p>
               <Link href="/membership" className="btn-primary">View Membership Plans</Link>
             </div>
@@ -241,7 +258,7 @@ export default function UserDashboardClient({
               <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
                 <AlertCircle className="w-5 h-5 text-red-600" />
               </div>
-              <h3 className="font-display font-bold text-lg">Cancel Booking?</h3>
+              <h3 className="font-bold text-lg">Cancel Booking?</h3>
             </div>
             <p className="text-sm text-gray-500 mb-6">This will cancel your booking. This action cannot be undone.</p>
             <div className="flex gap-3">
@@ -298,7 +315,7 @@ function StatCard({ label, value, icon, color }: { label: string; value: string;
   return (
     <div className="card">
       <div className={`w-9 h-9 rounded-xl ${colors[color]} flex items-center justify-center mb-3`}>{icon}</div>
-      <div className="font-display font-bold text-xl text-gray-900">{value}</div>
+      <div className="font-bold text-xl text-gray-900">{value}</div>
       <div className="text-xs text-gray-400 mt-0.5">{label}</div>
     </div>
   )
@@ -341,7 +358,7 @@ function ProfileForm({ user }: { user: User }) {
 
   return (
     <form onSubmit={handleSave} className="card max-w-lg space-y-4">
-      <h3 className="font-display font-semibold text-lg text-gray-900">Edit Profile</h3>
+      <h3 className="font-semibold text-lg text-gray-900">Edit Profile</h3>
       <div>
         <label className="label">Full Name</label>
         <input type="text" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="input" />

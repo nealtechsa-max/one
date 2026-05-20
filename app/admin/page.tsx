@@ -47,7 +47,7 @@ export default async function AdminDashboard() {
   return (
     <div className="p-8">
       <div className="mb-8">
-        <h1 className="font-display text-2xl font-bold text-gray-900">Dashboard</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
         <p className="text-gray-500 text-sm mt-1">Welcome to the Motive 8 Creative admin panel</p>
       </div>
 
@@ -66,7 +66,7 @@ export default async function AdminDashboard() {
               </div>
               <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-gray-400 transition-colors" />
             </div>
-            <div className="font-display font-bold text-2xl text-gray-900">{s.value}</div>
+            <div className="font-bold text-2xl text-gray-900">{s.value}</div>
             <div className="text-sm text-gray-400 mt-0.5">{s.label}</div>
           </Link>
         ))}
@@ -76,7 +76,7 @@ export default async function AdminDashboard() {
         {/* Recent Bookings */}
         <div className="card">
           <div className="flex items-center justify-between mb-5">
-            <h2 className="font-display font-semibold text-gray-900">Recent Bookings</h2>
+            <h2 className="font-semibold text-gray-900">Recent Bookings</h2>
             <Link href="/admin/bookings" className="text-sm text-brand-600 hover:text-brand-700">View all →</Link>
           </div>
           <div className="space-y-3">
@@ -100,7 +100,7 @@ export default async function AdminDashboard() {
         {/* Upcoming */}
         <div className="card">
           <div className="flex items-center justify-between mb-5">
-            <h2 className="font-display font-semibold text-gray-900">Upcoming Sessions</h2>
+            <h2 className="font-semibold text-gray-900">Upcoming Sessions</h2>
             <Link href="/admin/bookings" className="text-sm text-brand-600 hover:text-brand-700">View all →</Link>
           </div>
           <div className="space-y-3">

@@ -83,7 +83,7 @@ export default function AdminBookingsPage() {
     <div className="p-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-display text-2xl font-bold text-gray-900">Bookings</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Bookings</h1>
           <p className="text-gray-500 text-sm mt-1">
             {stats ? `${stats._count.id} paid bookings · ${formatCurrency(stats._sum.totalPrice || 0)} total revenue` : 'Loading stats...'}
           </p>
@@ -176,7 +176,7 @@ export default function AdminBookingsPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg">
             <div className="flex items-center justify-between p-6 border-b border-gray-100">
-              <h2 className="font-display font-bold text-xl text-gray-900">Manage Booking</h2>
+              <h2 className="font-bold text-xl text-gray-900">Manage Booking</h2>
               <button onClick={() => setSelectedBooking(null)} className="text-gray-400 hover:text-gray-600">✕</button>
             </div>
             <div className="p-6 space-y-4">

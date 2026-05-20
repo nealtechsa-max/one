@@ -188,9 +188,10 @@ export default function BookingCalendar({ spaces, studioHours, settings }: Booki
     }
   }
 
+  const isMember = membership?.status === 'ACTIVE'
   const dayHours = studioHours.find(h => h.isOpen)
-  const minTime = dayHours?.openTime || '08:00'
-  const maxTime = dayHours?.closeTime || '22:00'
+  const minTime = isMember ? '00:00' : (dayHours?.openTime || '07:00')
+  const maxTime = isMember ? '24:00' : (dayHours?.closeTime || '19:00')
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -248,6 +249,15 @@ export default function BookingCalendar({ spaces, studioHours, settings }: Booki
           </div>
         )}
 
+        {/* After-hours member notice */}
+        {!isMember && session && (
+          <div className="rounded-xl border border-brand-100 bg-brand-50 p-3 text-xs text-brand-700">
+            <div className="font-semibold mb-0.5">Want after-hours access?</div>
+            <div className="text-brand-600 mb-2">Members can book 24/7 — any time, any day.</div>
+            <a href="/membership" className="font-semibold underline">View plans →</a>
+          </div>
+        )}
+
         {/* Hours */}
         <div className="card">
           <h3 className="font-semibold text-gray-900 mb-3 text-sm">Studio Hours</h3>
@@ -260,6 +270,11 @@ export default function BookingCalendar({ spaces, studioHours, settings }: Booki
                 </span>
               </div>
             ))}
+            {isMember && (
+              <div className="mt-2 pt-2 border-t border-gray-100 text-[11px] text-brand-600 font-medium flex items-center gap-1">
+                ✦ Member: 24/7 access unlocked
+              </div>
+            )}
           </div>
         </div>
       </div>
